@@ -2,7 +2,16 @@ import Foundation
 
 public enum GameDataLoader {
     public static func loadDefaultConfiguration() throws -> GameConfiguration {
-        try loadDefaultConfiguration(bundle: .module)
+        if let resourcesURL = Bundle.main.resourceURL {
+            let bundledResourcesURL = resourcesURL
+                .appendingPathComponent("BeijingFushengjiMac_FushengjiCore.bundle", isDirectory: true)
+
+            if let bundledResources = Bundle(url: bundledResourcesURL) {
+                return try loadDefaultConfiguration(bundle: bundledResources)
+            }
+        }
+
+        return try loadDefaultConfiguration(bundle: .module)
     }
 
     public static func loadDefaultConfiguration(bundle: Bundle) throws -> GameConfiguration {

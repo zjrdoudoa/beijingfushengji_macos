@@ -31,6 +31,14 @@ swift run FushengjiCoreSelfTests
 
 自测覆盖初始化、每日利息、商品买卖、旅行消耗、随机事件、负债失败、胜利结算和存档读写。
 
+## 打包 macOS App
+
+```sh
+./scripts/package-release.sh 0.1.0
+```
+
+打包结果位于 `.build/releases/`。当前脚本生成 Apple Silicon 版本并使用临时签名；正式分发仍需要 Apple Developer ID 签名与公证。
+
 ## 主要结构
 
 - `FushengjiCore`：模型、规则、市场、事件、存档、排行榜和可注入 seed 的游戏引擎。
