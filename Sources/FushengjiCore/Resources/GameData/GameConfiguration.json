@@ -1,0 +1,234 @@
+{
+  "version": 1,
+  "rules": {
+    "defaultRoleID": "runner",
+    "maxDays": 40,
+    "debtInterestRate": 0.08,
+    "travelHealthCost": 4,
+    "maxBorrowAmount": 250000,
+    "endingConditions": {
+      "debtFailureLimit": 500000,
+      "victoryNetWorth": 120000,
+      "victoryReasonKey": "ending.victory",
+      "debtFailureReasonKey": "ending.debtFailure",
+      "healthFailureReasonKey": "ending.healthFailure",
+      "brokeReasonKey": "ending.broke"
+    }
+  },
+  "roles": [
+    {
+      "id": "runner",
+      "nameKey": "role.runner",
+      "cash": 3000,
+      "debt": 12000,
+      "health": 100,
+      "maxHealth": 100,
+      "capacity": 100,
+      "startLocationID": "gulou"
+    }
+  ],
+  "locations": [
+    {
+      "id": "gulou",
+      "nameKey": "location.gulou",
+      "travelCost": 20,
+      "marketModifiers": {
+        "old-books": 0.75,
+        "cassette": 0.95,
+        "porcelain-shard": 1.20,
+        "ticket-album": 0.90,
+        "chestnut": 0.85,
+        "digital-watch": 1.10
+      }
+    },
+    {
+      "id": "xidan",
+      "nameKey": "location.xidan",
+      "travelCost": 35,
+      "marketModifiers": {
+        "old-books": 1.05,
+        "cassette": 1.20,
+        "porcelain-shard": 0.95,
+        "ticket-album": 1.10,
+        "chestnut": 0.90,
+        "digital-watch": 1.25
+      }
+    },
+    {
+      "id": "panjiayuan",
+      "nameKey": "location.panjiayuan",
+      "travelCost": 50,
+      "marketModifiers": {
+        "old-books": 1.25,
+        "cassette": 0.85,
+        "porcelain-shard": 0.70,
+        "ticket-album": 1.35,
+        "chestnut": 1.00,
+        "digital-watch": 0.95
+      }
+    },
+    {
+      "id": "zhongguancun",
+      "nameKey": "location.zhongguancun",
+      "travelCost": 45,
+      "marketModifiers": {
+        "old-books": 0.95,
+        "cassette": 1.10,
+        "porcelain-shard": 1.15,
+        "ticket-album": 0.85,
+        "chestnut": 1.20,
+        "digital-watch": 0.70
+      }
+    },
+    {
+      "id": "qianmen",
+      "nameKey": "location.qianmen",
+      "travelCost": 30,
+      "marketModifiers": {
+        "old-books": 0.90,
+        "cassette": 1.05,
+        "porcelain-shard": 1.10,
+        "ticket-album": 1.20,
+        "chestnut": 0.75,
+        "digital-watch": 1.05
+      }
+    }
+  ],
+  "products": [
+    {
+      "id": "old-books",
+      "nameKey": "product.oldBooks",
+      "category": "paper",
+      "unitKey": "unit.stack",
+      "basePrice": 80,
+      "minPrice": 45,
+      "maxPrice": 145,
+      "riskLevel": 1
+    },
+    {
+      "id": "cassette",
+      "nameKey": "product.cassette",
+      "category": "media",
+      "unitKey": "unit.box",
+      "basePrice": 160,
+      "minPrice": 90,
+      "maxPrice": 260,
+      "riskLevel": 2
+    },
+    {
+      "id": "porcelain-shard",
+      "nameKey": "product.porcelainShard",
+      "category": "curio",
+      "unitKey": "unit.piece",
+      "basePrice": 280,
+      "minPrice": 150,
+      "maxPrice": 540,
+      "riskLevel": 4
+    },
+    {
+      "id": "ticket-album",
+      "nameKey": "product.ticketAlbum",
+      "category": "collectible",
+      "unitKey": "unit.album",
+      "basePrice": 430,
+      "minPrice": 220,
+      "maxPrice": 780,
+      "riskLevel": 3
+    },
+    {
+      "id": "chestnut",
+      "nameKey": "product.chestnut",
+      "category": "food",
+      "unitKey": "unit.bag",
+      "basePrice": 35,
+      "minPrice": 18,
+      "maxPrice": 70,
+      "riskLevel": 1
+    },
+    {
+      "id": "digital-watch",
+      "nameKey": "product.digitalWatch",
+      "category": "electronics",
+      "unitKey": "unit.piece",
+      "basePrice": 620,
+      "minPrice": 330,
+      "maxPrice": 1180,
+      "riskLevel": 5
+    }
+  ],
+  "events": [
+    {
+      "id": "paper-shortage",
+      "type": "price",
+      "titleKey": "event.paperShortage.title",
+      "bodyKey": "event.paperShortage.body",
+      "probability": 0.07,
+      "productIDs": ["old-books"],
+      "effect": {
+        "targetProductID": "old-books",
+        "priceMultiplier": 1.85
+      }
+    },
+    {
+      "id": "rainy-cold",
+      "type": "health",
+      "titleKey": "event.rainyCold.title",
+      "bodyKey": "event.rainyCold.body",
+      "probability": 0.08,
+      "effect": {
+        "healthDelta": -14
+      }
+    },
+    {
+      "id": "crowded-platform",
+      "type": "loss",
+      "titleKey": "event.crowdedPlatform.title",
+      "bodyKey": "event.crowdedPlatform.body",
+      "probability": 0.06,
+      "effect": {
+        "inventoryLossPercent": 0.18
+      }
+    },
+    {
+      "id": "collector-tip",
+      "type": "opportunity",
+      "titleKey": "event.collectorTip.title",
+      "bodyKey": "event.collectorTip.body",
+      "probability": 0.07,
+      "effect": {
+        "cashDelta": 380,
+        "bonusProductID": "ticket-album",
+        "bonusQuantity": 1
+      }
+    },
+    {
+      "id": "watch-demand",
+      "type": "price",
+      "titleKey": "event.watchDemand.title",
+      "bodyKey": "event.watchDemand.body",
+      "probability": 0.05,
+      "productIDs": ["digital-watch"],
+      "effect": {
+        "targetProductID": "digital-watch",
+        "priceMultiplier": 1.65
+      }
+    }
+  ],
+  "news": [
+    {
+      "id": "morning-ledger",
+      "titleKey": "news.morningLedger.title",
+      "bodyKey": "news.morningLedger.body"
+    },
+    {
+      "id": "market-rumor",
+      "titleKey": "news.marketRumor.title",
+      "bodyKey": "news.marketRumor.body"
+    },
+    {
+      "id": "late-train",
+      "titleKey": "news.lateTrain.title",
+      "bodyKey": "news.lateTrain.body"
+    }
+  ]
+}
